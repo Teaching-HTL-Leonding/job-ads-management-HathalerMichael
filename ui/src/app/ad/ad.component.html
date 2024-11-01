@@ -1,0 +1,10 @@
+<h1>All ads</h1>
+<form>
+  <ul id="all_ads">
+    <li *ngFor="let ad of ad_titles()">
+      <p>{{ad}}</p>
+      <button (click)='deleteAd(ad)' type="submit">Delete Add</button>
+      <a [routerLink]= "['/ad', ad]" >View Ad</a>
+    </li>
+  </ul>
+</form>
