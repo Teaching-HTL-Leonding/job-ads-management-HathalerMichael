@@ -25,11 +25,13 @@ export class AdComponent {
     this.ad_titles.set(this.ads.map(ad => ad.title));
   }
 
-  deleteAd(title : string){
+  async deleteAd(title : string){
     let foundAd= this.ads.find(ad => ad.title === title);
-    console.log(title);
     if (foundAd !== undefined){
-      this.adService.deleteAd(foundAd.id);
+      await this.adService.deleteAd(foundAd.id);
+      this.ads = this.ads.filter(ad => ad.title !== title);
+      this.ad_titles.set(this.ads.map(ad => ad.title));
     }
+
   }
 }

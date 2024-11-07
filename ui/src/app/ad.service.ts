@@ -3,13 +3,13 @@ import { inject, Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 
 export type ad = {
-  "title": "string",
-  "textEN": "string",
+  "title": string,
+  "textEN": string,
   "id": 0,
   "translations": [
     {
-      "language": "string",
-      "translatedText": "string"
+      "language": string,
+      "translatedText": string
     }
   ]
 }
@@ -23,11 +23,27 @@ export class AdService {
   private httpClient = inject(HttpClient);
 
   async getAds() : Promise<ad[]> {
+    console.log("set ads");
+
     return firstValueFrom(this.httpClient.get<ad[]>('http://localhost:3000/ads'));
   }
 
-  deleteAd(id : number){
+  async deleteAd(id : number){
+    console.log("delete ad");
+
     firstValueFrom(this.httpClient.delete(`http://localhost:3000/ads/${id}`));
+  }
+
+  async getSingleAd(id : number) : Promise<ad>{
+    return firstValueFrom(this.httpClient.get<ad>(`http://localhost:3000/ads/${id}`));
+  }
+
+  async updateDetail(id : number, updatedParts : Partial<ad>  ){
+    console.log(updatedParts);
+
+    console.log(updatedParts);
+
+    firstValueFrom(this.httpClient.patch(`http://localhost:3000/ads/${id}`, updatedParts));
   }
 
 

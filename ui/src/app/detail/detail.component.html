@@ -1,3 +1,2 @@
-<input type="text" value="{{title()}}">
-<input type="text" value="{{id()}}">
-<input type="text" value="{{textEN()}}">
+<input type="text" value="{{title()}}" (input)="updateDetail($event, true)" >
+<input type="text" value="{{textEN()}}" (input)="updateDetail($event,true )">
