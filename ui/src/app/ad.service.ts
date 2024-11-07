@@ -30,7 +30,7 @@ export class AdService {
   async deleteAd(id : number){
     console.log("delete ad");
 
-    firstValueFrom(this.httpClient.delete(`http://localhost:3000/ads/${id}`));
+    return firstValueFrom(this.httpClient.delete(`http://localhost:3000/ads/${id}`));
   }
 
   async getSingleAd(id : number) : Promise<ad>{
@@ -43,6 +43,12 @@ export class AdService {
     console.log(updatedParts);
 
     firstValueFrom(this.httpClient.patch(`http://localhost:3000/ads/${id}`, updatedParts));
+  }
+
+  async upsertTranslation(id : number, language : string, translatedText : string){
+    console.log(language);
+
+    firstValueFrom(this.httpClient.put(`http://localhost:3000/ads/${id}/translations/${language}` , translatedText));
   }
 
 
