@@ -1,0 +1,19 @@
+.ad_detail{
+  margin-top:10rem;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+.single_TextEN{
+  margin-bottom:3rem;
+  margin-top:3rem;
+  font-size:1.5rem;
+  font-weight:bold;
+}
+
+input, textarea, button{
+  margin-bottom:0.5rem;
+}

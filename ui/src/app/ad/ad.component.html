@@ -1,0 +1,14 @@
+
+  <div id="app">
+    <h1>All ads</h1>
+    <ul id="all_ads">
+      <li *ngFor="let ad of ads()" style="text-decoration: none;">
+        <div class="ad">
+          <p style="margin-right:1rem">{{ad.title}}</p>
+          <div style="margin-right:1rem" class="delete_ad" (click)='deleteAd(ad.id)'>❎</div>
+          <a [routerLink]= "['/ad', ad.id]" >View Ad</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+

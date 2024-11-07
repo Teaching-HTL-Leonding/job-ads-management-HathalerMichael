@@ -1,0 +1,20 @@
+<div class="ad_detail">
+  <input type="text" [(ngModel)]="ad().title" value="{{ad().title}}" class="single_title">
+  <textarea type="text" rows="10" cols="100" [(ngModel)]="ad().textEN" value="{{ad().textEN}}" class="single_textEN"></textarea>
+  <button type="submit" (click)="updateDetail()">Update</button>
+
+  <input list="translations_requests" [(ngModel)]="newLanguage">
+  <datalist type="text" id="translations_requests">
+    @for (translation of ad().translations; track translation){
+      <option value="{{translation.language}}"></option>
+    }
+  </datalist>
+  <button (click)="loadTranslation()">Load Translation</button>
+  <textarea type="text" rows="10" cols="100" [(ngModel)]="translationText"
+  placholder="Enter new Translation for the text"></textarea>
+
+  <button (click)="addTranslation()">Add Translation</button>
+
+  <button routerLink='/ad'>Back to ads </button>
+</div>
+
