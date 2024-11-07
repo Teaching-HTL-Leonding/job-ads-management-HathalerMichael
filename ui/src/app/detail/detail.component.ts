@@ -1,63 +1,39 @@
 import { Component, inject, signal } from '@angular/core';
 import { ad, AdService } from '../ad.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-detail',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule,RouterLink],
   templateUrl: './detail.component.html',
   styleUrl: './detail.component.css'
 })
 export class DetailComponent {
   private adService = inject(AdService);
   private route = inject(ActivatedRoute)
-  ads : ad[] = [];
-  title = signal('');
-  id = signal('');
-  textEN = signal('');
+  ad = signal<ad>({title: "", textEN: "", id: 0, translations: [{language: "", translatedText: ""}]});
+  adId = this.route.snapshot.paramMap.get('ad');
 
   ngOnInit(){
     this.getSingleAdDetail();
   }
 
   async getSingleAdDetail(){
-    let adTitle = this.route.snapshot.paramMap.get('ad');
-    this.ads = await this.adService.getAds();
-    let foundAd = this.ads.find(ad => ad.title === adTitle);
-    if (foundAd !== undefined){
-      this.title.set(foundAd.title);
-      this.id.set(foundAd.id.toString());
-      this.textEN.set(foundAd.textEN);
-    }
+    if (this.adId !== null){
+      this.ad.set(await this.adService.getSingleAd(parseInt(this.adId)));}
   }
 
-  async updateDetail(event : Event, updateTitle : boolean){
+  async updateDetail(){
     console.log("Update detail");
-    console.log(this.id());
 
-
-
-
-
-    if(updateTitle){
-      let newTitle = event.target as HTMLInputElement;
-      this.title.set(newTitle.value);
-      console.log(newTitle.value);
+    if (this.adId !== null){
       let updatedParts : Partial<ad> = {
-        title: newTitle.value
-      };
-      this.adService.updateDetail(parseInt(this.id()), updatedParts);
-    }
-    else{
-      let newText = event.target as HTMLInputElement;
-
-      this.title.set(newText.value);
-      let updatedParts : Partial<ad> = {
-        textEN: newText.value
-      };
-      this.adService.updateDetail(parseInt(this.id()), updatedParts);
+        title: this.ad().title,
+        textEN : this.ad().textEN
+      }
+      this.adService.updateDetail(parseInt(this.adId), updatedParts );
     }
   }
 

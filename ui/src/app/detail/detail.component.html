@@ -1,2 +1,7 @@
-<input type="text" value="{{title()}}" (input)="updateDetail($event, true)" >
-<input type="text" value="{{textEN()}}" (input)="updateDetail($event,true )">
+<div class="ad_detail">
+  <input type="text" [(ngModel)]="ad().title" value="{{ad().title}}" class="single_title">
+  <textarea type="text" rows="10" cols="100" [(ngModel)]="ad().textEN" value="{{ad().textEN}}" class="single_textEN"></textarea>
+  <button type="submit" (click)="updateDetail()">Update</button>
+  <button routerLink='/ad'>Back to ads </button>
+</div>
+

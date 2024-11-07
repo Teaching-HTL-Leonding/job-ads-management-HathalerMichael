@@ -24,7 +24,6 @@ export class AdService {
 
   async getAds() : Promise<ad[]> {
     console.log("set ads");
-
     return firstValueFrom(this.httpClient.get<ad[]>('http://localhost:3000/ads'));
   }
 

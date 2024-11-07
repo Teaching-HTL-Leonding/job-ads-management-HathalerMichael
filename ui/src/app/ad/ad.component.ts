@@ -12,26 +12,19 @@ import { RouterLink } from '@angular/router';
 })
 export class AdComponent {
   private adService = inject(AdService);
-  ad_titles = signal<string[]>([]);
-
-  ads : ad[] = [];
+  ads = signal<ad[]>([]);
 
   ngOnInit(){
     this.setAds();
   }
 
   async setAds(){
-    this.ads = await this.adService.getAds();
-    this.ad_titles.set(this.ads.map(ad => ad.title));
+    this.ads.set(await this.adService.getAds());
   }
 
-  async deleteAd(title : string){
-    let foundAd= this.ads.find(ad => ad.title === title);
-    if (foundAd !== undefined){
-      await this.adService.deleteAd(foundAd.id);
-      this.ads = this.ads.filter(ad => ad.title !== title);
-      this.ad_titles.set(this.ads.map(ad => ad.title));
-    }
+  async deleteAd(id : number){
+    await this.adService.deleteAd(id);
+    this.setAds();
+  }
 
   }
-}
